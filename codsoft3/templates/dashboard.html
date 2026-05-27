@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="main">
+
+    <div class="left">
+
+        <h1>
+            AI Security Dashboard
+        </h1>
+
+        <h2>
+            Welcome {{ username }}
+        </h2>
+
+        <!-- SPAM DETECTION -->
+
+        <div class="section">
+
+            <h2>
+                Spam SMS Detection
+            </h2>
+
+            <form action="/predict_spam"
+                  method="POST">
+
+                <textarea
+                    name="message"
+                    placeholder="Enter SMS Message..."
+                    required
+                ></textarea>
+
+                <button type="submit">
+
+                    Detect Spam
+
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- FRAUD DETECTION -->
+
+        <div class="section">
+
+            <h2>
+                Credit Card Fraud Detection
+            </h2>
+
+            <form action="/predict_fraud"
+                  method="POST">
+
+                <input type="number"
+                       name="amount"
+                       placeholder="Transaction Amount"
+                       required>
+
+                <select name="location">
+
+                    <option>India</option>
+                    <option>USA</option>
+                    <option>Russia</option>
+                    <option>China</option>
+                    <option>Nigeria</option>
+
+                </select>
+
+                <select name="device">
+
+                    <option>Mobile</option>
+                    <option>Laptop</option>
+                    <option>Desktop</option>
+                    <option>VPN</option>
+                    <option>Unknown</option>
+
+                </select>
+
+                <button type="submit">
+
+                    Detect Fraud
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="right">
+
+        <h2>
+            Spam History
+        </h2>
+
+        {% for item in spam_history %}
+
+        <div class="history-box">
+
+            <p>{{ item[2] }}</p>
+
+            <span>{{ item[3] }}</span>
+
+            <small>
+                {{ item[4] }}%
+            </small>
+
+            <small>
+                {{ item[5] }}
+            </small>
+
+        </div>
+
+        {% endfor %}
+
+        <h2>
+            Fraud History
+        </h2>
+
+        {% for item in fraud_history %}
+
+        <div class="history-box">
+
+            <p>
+                ₹{{ item[2] }}
+            </p>
+
+            <span>
+                {{ item[5] }}
+            </span>
+
+            <small>
+                {{ item[6] }}
+            </small>
+
+            <small>
+                {{ item[7] }}%
+            </small>
+
+            <small>
+                {{ item[8] }}
+            </small>
+
+        </div>
+
+        {% endfor %}
+
+        <a href="/logout">
+
+            <button class="logout">
+
+                Logout
+
+            </button>
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
